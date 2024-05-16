@@ -4,6 +4,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import * as Joi from 'joi';
 import { HttpModule } from '@nestjs/axios';
+import { AuthService } from './auth/auth.service';
+import { APP_GUARD } from '@nestjs/core';
+import { KeycloakAuthGuard } from './auth/guards/keycloak-auth.guard';
+import { JwtAuthGuard } from './auth/guards/auth.guard';
+import { AuthController } from './auth/auth.controller';
 
 @Module({
   imports: [
@@ -28,6 +33,18 @@ import { HttpModule } from '@nestjs/axios';
     },
     CategoryModule,
     AuthModule,
+  ],
+  controllers: [AuthController],
+  providers: [
+    AuthService,
+    {
+      provide: APP_GUARD,
+      useClass: KeycloakAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
   ],
 })
 export class AppModule {}
