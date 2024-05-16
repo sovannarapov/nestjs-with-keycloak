@@ -9,6 +9,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { KeycloakAuthGuard } from './auth/guards/keycloak-auth.guard';
 import { JwtAuthGuard } from './auth/guards/auth.guard';
 import { AuthController } from './auth/auth.controller';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { AuthController } from './auth/auth.controller';
     },
     CategoryModule,
     AuthModule,
+    ProductModule,
   ],
   controllers: [AuthController],
   providers: [
