@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
 import { CategoryModule } from './category/category.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 import * as Joi from 'joi';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -15,7 +17,17 @@ import * as Joi from 'joi';
         DB_PORT: Joi.number().required(),
       }),
     }),
+    {
+      global: true,
+      ...HttpModule.registerAsync({
+        inject: [ConfigService],
+        useFactory: (config: ConfigService) => ({
+          baseURL: config.get<string>('KEYCLOAK_URL'),
+        }),
+      }),
+    },
     CategoryModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
