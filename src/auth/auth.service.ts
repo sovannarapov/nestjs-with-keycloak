@@ -1,6 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { LoginDto } from './dto/login.dto';
+import { LoginDto } from './requests';
 import { ConfigService } from '@nestjs/config';
 import { catchError, map } from 'rxjs';
 
@@ -12,6 +12,7 @@ export class AuthService {
   ) {}
 
   async login(loginDto: LoginDto) {
+    const { identifier, password } = loginDto;
     const headers = {
       'Content-type': 'application/x-www-form-urlencoded',
     };
@@ -20,12 +21,10 @@ export class AuthService {
       client_secret: this._configService.get('KEYCLOAK_CLIENT_SECRET'),
       scope: this._configService.get('KEYCLOAK_SCOPE'),
       grant_type: 'password',
-      username: loginDto.identifier,
-      password: loginDto.password,
+      username: identifier,
+      password: password,
     };
-
     const keycloakRealm = this._configService.get('KEYCLOAK_REALM');
-
     const response = this._httpService
       .post(`/realms/${keycloakRealm}/protocol/openid-connect/token`, payload, {
         headers,
