@@ -4,11 +4,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import * as Joi from 'joi';
 import { HttpModule } from '@nestjs/axios';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './auth/services/auth.service';
 import { APP_GUARD } from '@nestjs/core';
 import { KeycloakAuthGuard } from './auth/guards/keycloak-auth.guard';
 import { JwtAuthGuard } from './auth/guards/auth.guard';
-import { AuthController } from './auth/auth.controller';
+import { AuthController } from './auth/controllers/auth.controller';
 import { ProductModule } from './product/product.module';
 
 @Module({
