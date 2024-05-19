@@ -1,6 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { LoginDto } from './requests';
+import { LoginDto } from '../requests';
 import { ConfigService } from '@nestjs/config';
 import { catchError, map } from 'rxjs';
 
