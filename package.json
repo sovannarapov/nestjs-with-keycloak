@@ -1,8 +1,8 @@
 {
   "name": "nestjs-with-keycloak",
   "version": "0.0.1",
-  "description": "",
-  "author": "sovannara",
+  "description": "An API for learning how to integrate KeyCloak as a user management tool in NestJS.",
+  "author": "Sovannara Pov",
   "private": true,
   "license": "MIT",
   "scripts": {
